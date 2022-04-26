@@ -38,11 +38,11 @@ while(True):
 
     if i == obj_det_run:
         # display the processed image
-        rectangles = spawn_weapon.find(screenshot, threshold)
+        # rectangles = spawn_weapon.find(screenshot, threshold)
 
         # corre o spawn_weapon.find em background
-        # t1 = threading.Thread(target=spawn_weapon.find, args=(wincap.get_screenshot(), threshold))
-        # t1.start()
+        t1 = threading.Thread(target=spawn_weapon.find, args=(wincap.get_screenshot(), threshold))
+        t1.start()
         # inicializa o track de cada quadrado
         # spawn_weapon.init_tracks(screenshot)
         # detecting = True
@@ -52,17 +52,15 @@ while(True):
     print('FPS {}'.format(1 / (time() - loop_time)))
     loop_time = time()
 
-    spawn_weapon.track(screenshot)
+    # spawn_weapon.track(screenshot)
     # corre o spawn_weapon.track que devolve threads
-    if detecting:
-        detecting = False
+    # if detecting:
+    #     detecting = False
         # t1.join()
 
-    # threads = spawn_weapon.th_track(screenshot)
-    # for th in threads:
-    #     th.join()
-
-
+    threads = spawn_weapon.th_track(screenshot)
+    for th in threads:
+        th.join()
 
     # desenha os quadrados detetados
     spawn_weapon.draw(screenshot)
@@ -72,7 +70,6 @@ while(True):
     # cv.setWindowProperty("Matches", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
     cv.imshow('Matches', screenshot)
 
-    
     # press 'q' with the output window focused to exit
     if cv.waitKey(1) == ord('q'):
         cv.destroyAllWindows()
