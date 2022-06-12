@@ -17,38 +17,19 @@
                 <div class="information">
                     <h3 class="subtitle">Information</h3>
                     <p>{{abstract}}</p>
-            
-                    <div class="buttons">
-                        <a href="a84011_pre_dissertation.pdf" download>
-                            <img style="width: 40px; height:40px; padding: 5px;" src="icons/download.png">
-                        </a>
-            
-                        <a href="https://github.com/Trina99/Detect-and-Track">
-                            <img style="width: 45px; height:45px;" src="icons/github.png">
-                        </a>
-            
-                        <a href="https://www.linkedin.com/in/catarinafreitascruz/">
-                            <img style="width:50px; height:48px;" src="icons/linkdIn.png">
-                        </a>
-                        <div style="width:100%; height:1px;"></div>
-            
-                        <a href="https://anybrain.gg/">
-                            <img style="width: 96px; height:68px;" src="icons/anybrain.png">
-                        </a>
-                    </div>
+
+                    <links-url></links-url>
                 </div>
                 <div class="configurations">
                     <h3 class="subtitle">Configurations</h3>
-                    <form action="">
+                    <form action="#">
                         <div class="options">
                             <div class="window_capture">
                                 <p>Window Capture <img style="width:20px; height:20px; " src="icons/question.png"></p>
                 
-                                <select class="select_box" name="window" id="window">
+                                <select v-model="selectedwindow" @click="windos" class="select_box" name="window" id="window">
                                     <option value="">Entire Screen</option>
-                                    <option value="Brawlhalla">Brawlhalla</option>
-                                    <option value="CSGO">CSGO</option>
-                                    <option value="LOL">LOL</option>
+                                    <option v-for="w in windows">{{w}}</option>
                                 </select>
                             </div>
                 
@@ -60,15 +41,15 @@
                             <div class="threshod">
                                 <p>threshold <img style="width:20px; height:20px; " src="icons/question.png"></p>
                                 <div class="slidecontainer">
-                                    <input type="range" min="1" max="100" value="65" class="slider" id="range">
+                                    <input v-model="sense" type="range" min="1" max="100" value="65" class="slider" id="range">
                 
-                                    <input type="text" class="range_value" id="text_value" name="value" value="value">
+                                    <input type="text" class="range_value" name="value" v-model="sense">
                                 </div>
                             </div>
                 
                         </div>
                         <div class="start">
-                            <button>START</button>
+                            <button @click="start">START</button>
                         </div>
                     </form>
                 </div>
@@ -77,6 +58,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/gamesApp.js"></script>
-    <script src="scripts/script.js"></script>
+    <!-- <script src="scripts/script.js"></script> -->
     </body>
 </html>
