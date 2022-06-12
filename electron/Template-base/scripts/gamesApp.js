@@ -8,8 +8,8 @@ var vm = new Vue({
         // windows: [],
         windows: [],
         selectedwindow: "",
-        fileName: "",
-        sense: 65
+        filename: "",
+        sense: 70
     },
     methods: {
         windos: async function () {
@@ -17,9 +17,9 @@ var vm = new Vue({
             try{
                 const response = await fetch("http://localhost:5000/getWindows");
                 win = await response.json();
-                console.log(win);
+                //console.log(win);
                 for(w of win.windows){
-                    console.log(w + typeof(w));
+                    //console.log(w + typeof(w));
                     w_list.push(w);
                 }
 
@@ -33,7 +33,7 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
-            console.log("this runs");
+            alert(this.filename);
             try{ 
                 const requestOptions = {
                     method: "POST",
@@ -50,8 +50,15 @@ var vm = new Vue({
             } catch(erros) {
                 console.log(erros);
             }
+        },
+        processFile(event){
+            var file = event.target.files;
+            alert(this.file);
         }
-    }    
+    },
+    created(){
+        this.windos();
+    }
 })
 
 
@@ -70,18 +77,24 @@ Vue.component('link-button', {
             default: false
         }
     },
-    data: function () {
-        return {
-        }
-    },
     methods:{
         openLink(){
-            console.log(this.link);
-            shell.openExternal(this.link);
+            if (!this.download) {
+                console.log(this.link);
+                shell.openExternal(this.link);
+            }
+        }
+    },
+    computed:{
+        fileName(){
+            return (this.download) ? this.link : this.download;
+        },
+        linkName(){
+            return (this.download) ? this.link : "#";
         }
     },
     template: `
-            <a href="#" @click="openLink" v-bind:download="download">
+            <a v-bind:href="linkName" @click="openLink" v-bind:download="fileName">
                 <img v-bind:style="{ width: width , height: height, padding: padding }" v-bind:src="img">
             </a>
     `
@@ -96,9 +109,6 @@ Vue.component ('links-url', {
             linkdIn_url: "https://www.linkedin.com/in/catarinafreitascruz/",
             anybrain_url: "https://anybrain.gg/",
         }
-    },
-    components:{
-        
     },
     template:`
         <div class="buttons">
