@@ -3,14 +3,15 @@ from cv2 import threshold
 from matplotlib.pyplot import draw
 import numpy as np
 from time import time
-from tese.windowcapture import WindowCapture
-from tese.vision import Vision
+# from tese.windowcapture import WindowCapture
+# from tese.vision import Vision
+from windowcapture import WindowCapture
+from vision import Vision
 import threading
 import os
 
 
-# shows all the open window names
-# WindowCapture.list_window_names()
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # user variables
 # threshold = 0.65
@@ -18,14 +19,22 @@ import os
 # img_path = 'tese/spawn_weapon_2.jpg'
 
 
+def list_windows():
+    # shows all the open window names
+    windows = WindowCapture.list_window_names()
+    print(windows)
+    return windows
+
 def execute(window = 'Brawlhalla', threshold = 0.65):
+
 
     # initialize the WindowCapture class
     wincap = WindowCapture(window)
+
     # wincap = WindowCapture()
     # initialize the Vision class
     print(os.getcwd())
-    img_path="rest_api/tese/imgs/spawn_weapon_2.jpg"
+    img_path="imgs/baloes.png"
     spawn_weapon = Vision(img_path)
 
     # de quantas em quantas iterações corre o object detection
@@ -83,4 +92,8 @@ def execute(window = 'Brawlhalla', threshold = 0.65):
     print(window, img_path, threshold)
     print('Done.')
 
-# run()
+
+# shows all the open window names
+# list_windows()
+
+execute('PokеMMO',0.65)

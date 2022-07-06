@@ -1,3 +1,4 @@
+from tkinter import SW
 import numpy as np
 import win32gui, win32ui, win32con
 
@@ -23,6 +24,7 @@ class WindowCapture:
             self.hwnd = win32gui.FindWindow(None, window_name)
             if not self.hwnd:
                 raise Exception('Window not found: {}'.format(window_name))
+            win32gui.ShowWindow(self.hwnd, win32con.SW_MAXIMIZE)
 
         # get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
@@ -41,6 +43,7 @@ class WindowCapture:
         # images into actual screen positions
         self.offset_x = window_rect[0] + self.cropped_x
         self.offset_y = window_rect[1] + self.cropped_y
+
 
     def get_screenshot(self):
         # get the window image data

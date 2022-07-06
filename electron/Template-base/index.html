@@ -25,7 +25,13 @@
                     <form action="#">
                         <div class="options">
                             <div class="window_capture">
-                                <p>Window Capture <img style="width:20px; height:20px; " src="icons/question.png"></p>
+                                <p>
+                                    Window Capture 
+                                    <span class="tooltip">
+                                        <img style="width:20px; height:20px; " src="icons/question.png">
+                                        <span class="tooltiptext">Tooltip text window capture</span>
+                                    </span>
+                                </p>
                 
                                 <select v-model="selectedwindow" @click="windos" class="select_box" name="window" id="window">
                                     <option value="">Entire Screen</option>
@@ -34,12 +40,24 @@
                             </div>
                 
                             <div class="template_matching">
-                                <p>Template Matching <img style="width:20px; height:20px; " src="icons/question.png"></p>
+                                <p>
+                                    Template Matching
+                                    <span class="tooltip">
+                                        <img style="width:20px; height:20px; " src="icons/question.png">
+                                        <span class="tooltiptext">Tooltip text template matching</span>
+                                    </span>
+                                </p>
                                 <input type="file" id="myFile" name="filename">
                             </div>
                 
                             <div class="threshod">
-                                <p>threshold <img style="width:20px; height:20px; " src="icons/question.png"></p>
+                                <p>
+                                    threshold 
+                                    <span class="tooltip">
+                                        <img style="width:20px; height:20px; " src="icons/question.png">
+                                        <span class="tooltiptext">Tooltip text threshold</span>
+                                    </span>
+                                </p>
                                 <div class="slidecontainer">
                                     <input v-model="sense" type="range" min="1" max="100" value="65" class="slider" id="range">
                 

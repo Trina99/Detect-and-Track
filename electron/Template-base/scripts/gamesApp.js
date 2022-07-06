@@ -33,7 +33,7 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
-            alert(this.filename);
+            // alert(this.filename);
             try{ 
                 const requestOptions = {
                     method: "POST",
@@ -53,7 +53,7 @@ var vm = new Vue({
         },
         processFile(event){
             var file = event.target.files;
-            alert(this.file);
+            // alert(this.file);
         }
     },
     created(){
