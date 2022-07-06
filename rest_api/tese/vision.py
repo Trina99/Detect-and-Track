@@ -38,7 +38,11 @@ class Vision:
         locations = list(zip(*locations[::-1]))
 
         rectangles = []
+        self.rectangles = []
         # rectangles = list(self.rectangles)
+        if not locations:
+            return np.array([], dtype=np.int32).reshape(0, 4)
+
         for loc in locations:
             rect = [int(loc[0]), int(loc[1]), self.w, self.h]
             rectangles.append(rect)
@@ -46,7 +50,7 @@ class Vision:
 
         aux, weights = cv.groupRectangles(rectangles, groupThreshold=1, eps=0.5)
         self.rectangles = aux
-        self.init_tracks(haystack_img)
+        # self.init_tracks(haystack_img)
         return aux
 
     # inicializa goturn tracker de todos os retangulos no frame
@@ -54,6 +58,7 @@ class Vision:
         aux_track = []
         for bbox in self.rectangles:
             tracker = cv.TrackerGOTURN_create()
+            
             # tracker = cv.TrackerMIL_Create()
             tracker.init(frame, bbox)
             aux_track.append(tracker)

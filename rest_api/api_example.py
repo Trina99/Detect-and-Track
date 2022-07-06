@@ -38,6 +38,7 @@ def run():
     window = record['window']
     img_path = record['img']
     threshold = record['threshold']
+    print("IMAGE_PATH: " + img_path)
     print(window)
     thr = threading.Thread(target=execute, args=(window, threshold), kwargs={})
     thr.start() # Will run "foo"

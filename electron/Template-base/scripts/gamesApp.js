@@ -33,14 +33,14 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
-            // alert(this.filename);
+            alert(this.filename);
             try{ 
                 const requestOptions = {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         window: this.selectedwindow,
-                        img: 'tese/imgs/spawn_weapon_2.jpg',
+                        img: '',
                         threshold: this.sense / 100,
                     })
                 };
