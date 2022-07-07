@@ -1,4 +1,5 @@
 import json
+import sys
 from flask import Flask, jsonify, request
 from tese.main import *
 from tese.windowcapture import WindowCapture
@@ -34,11 +35,21 @@ def run():
     # print(request.endpoint)
     # print(request.method)
     # print(request.remote_addr)
-    record = request.get_json()
-    window = record['window']
-    img_path = record['img']
-    threshold = record['threshold']
-    print("IMAGE_PATH: " + img_path)
+    # record = request.get_json()
+    # window = record['window']
+    # img_path = record['img']
+    # threshold = record['threshold']
+    # print("IMAGE_PATH: " + img_path)
+    window = request.form.get('window')
+    img = request.files['file']
+    threshold = request.form.get('threshold')
+    print(window)
+    print(threshold)
+    print(img)
+    # C:\\Users\\António Cruz\\Documents\\Github\\Detect-and-Track\\\rest_api\\tese\\
+    folderPath = os.path.join(os.getcwd(), "imgs")
+    print(folderPath)
+    img.save(os.path.join('imgs', "target.png"))
     print(window)
     thr = threading.Thread(target=execute, args=(window, threshold), kwargs={})
     thr.start() # Will run "foo"

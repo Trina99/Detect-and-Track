@@ -47,7 +47,7 @@
                                         <span class="tooltiptext">Tooltip text template matching</span>
                                     </span>
                                 </p>
-                                <input type="file" id="myFile" name="filename">
+                                <input type="file" @change="handleFileUpload( $event )" />
                             </div>
                 
                             <div class="threshod">
@@ -73,7 +73,8 @@
                 </div>
             </div>
         </div>
-
+        
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/gamesApp.js"></script>
     <!-- <script src="scripts/script.js"></script> -->

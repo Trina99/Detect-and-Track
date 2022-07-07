@@ -9,6 +9,7 @@ var vm = new Vue({
         windows: [],
         selectedwindow: "",
         filename: "",
+        file:'',
         sense: 70
     },
     methods: {
@@ -33,27 +34,50 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
-            alert(this.filename);
-            try{ 
-                const requestOptions = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        window: this.selectedwindow,
-                        img: '',
-                        threshold: this.sense / 100,
-                    })
-                };
+            //alert(this.file.name);
+            //alert(this.file.webkitRelativePath);
+            let formData = new FormData();
+            formData.append('window', this.selectedwindow);
+            formData.append('file', this.file);
+            formData.append('threshold', this.sense / 100);
+            
+            axios.post('http://localhost:5000/run',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            ).then(function () {
+                console.log('SUCCESS!!');
+            })
+            .catch(function () {
+                alert("frick");
+            });
+            alert("cuk");
+            // try{ 
+            //     const requestOptions = {
+            //         method: "POST",
+            //         headers: { "Content-Type": "application/json" },
+            //         body: JSON.stringify({
+            //             window: this.selectedwindow,
+            //             img: this.file,
+            //             threshold: this.sense / 100,
+            //         })
+            //     };
 
-                const response = fetch("http://localhost:5000/run", requestOptions);
-                const data = response.json();
-            } catch(erros) {
-                console.log(erros);
-            }
+            //     const response = fetch("http://localhost:5000/run", requestOptions);
+            //     const data = response.json();
+            // } catch(erros) {
+            //     console.log(erros);
+            // }
         },
         processFile(event){
             var file = event.target.files;
             // alert(this.file);
+        },
+        handleFileUpload(event) {
+            this.file = event.target.files[0];
         }
     },
     created(){

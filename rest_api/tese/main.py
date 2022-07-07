@@ -33,7 +33,7 @@ def execute(window = 'None', threshold = 0.65):
     # wincap = WindowCapture()
     # initialize the Vision class
     # print(os.getcwd())
-    img_path="imgs/baloes.png"
+    img_path="imgs/target.png"
     spawn_weapon = Vision(img_path)
 
     # de quantas em quantas iterações corre o object detection
@@ -52,7 +52,7 @@ def execute(window = 'None', threshold = 0.65):
 
         if i >= obj_det_run:
             # display the processed image
-            rectangles = spawn_weapon.find(screenshot, threshold)
+            rectangles = spawn_weapon.find(screenshot, float(threshold))
 
             # corre o spawn_weapon.find em background
             # t1 = threading.Thread(target=spawn_weapon.find, args=(wincap.get_screenshot(), threshold))

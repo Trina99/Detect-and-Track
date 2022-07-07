@@ -20,7 +20,9 @@
     "electron": "^19.0.0"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "requirejs": "^2.3.6",
-    "vue": "^3.2.36"
+    "vue": "^3.2.36",
+    "vue-axios": "^3.4.1"
   }
 }
