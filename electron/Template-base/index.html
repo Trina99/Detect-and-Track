@@ -16,8 +16,11 @@
             <div class="box-container">
                 <div class="information">
                     <h3 class="subtitle">Information</h3>
-                    <p>{{abstract}}</p>
-                    
+                    <!-- <p v-for="abs in abstract">{{abs}}</p> -->
+                    <p> As part of the development of the master's dissertation, this program was developed with the objective of identifying the movement of a given object, in real time, in the environment of a game, using <b>Machine Learning</b> and <b>Computer Vision</b> techniques, more specifically methods of <b>Object Detection</b> and <b>Object Tracking</b> </p>
+                    <p> The practical environment was developed using the <u>OpenCV python library</u>, which has a diverse range of computer vision algorithms available and also allows the parallel use of CPU and GPU for the optimization of these same algorithm.</p>
+                    <p>To start the program it is necessary to choose a window, an image and a threshold value and then click on start.The program will search for the provided image in screenshots constant to the window, highlighting only the objects found with equality equal to or greater than the given threshold.</p>
+
                     <links-url></links-url>
                 </div>
                 <div class="configurations">
@@ -29,7 +32,13 @@
                                     Window Capture 
                                     <span class="tooltip">
                                         <img style="width:20px; height:20px; " src="icons/question.png">
-                                        <span class="tooltiptext">Tooltip text window capture</span>
+                                        <span class="tooltiptext">
+                                            Choose the window you want the program to capture. It needs to have the exact name of the window for the program to be
+                                            able to recognize it. It will take constant screenshots of the window that will be used in template matching.
+                                            <br>
+                                            <img style="width:24px; height:24px; vertical-align: middle;" src="icons/warning.png"> In case of error, maximize the window in question and re-select the window (don't minimize the selected
+                                            window).
+                                        </span>
                                     </span>
                                 </p>
                 
@@ -44,7 +53,13 @@
                                     Template Matching
                                     <span class="tooltip">
                                         <img style="width:20px; height:20px; " src="icons/question.png">
-                                        <span class="tooltiptext">Tooltip text template matching</span>
+                                        <span class="tooltiptext">
+                                            Choose the image you want the program to detect on the window selected above. It cannot be an image without a
+                                            background. Take, for example, a screenshot of the object you want and save the image.
+                                            <br>
+                                            <img style="width:24px; height:24px; vertical-align: middle;" src="icons/warning.png"> If the image has too much background, the program may try to detect the background instead of the object. Try
+                                            to make the image contain only the object, or a large part of it.
+                                        </span>
                                     </span>
                                 </p>
                                 <input type="file" @change="handleFileUpload( $event )" />
@@ -55,7 +70,13 @@
                                     threshold 
                                     <span class="tooltip">
                                         <img style="width:20px; height:20px; " src="icons/question.png">
-                                        <span class="tooltiptext">Tooltip text threshold</span>
+                                        <span class="tooltiptext">
+                                            Corresponds to the minimum degree of equality necessary to determine whether the provided image and the found object
+                                            represent the same thing. If they are the same, the object is highlighted.
+                                            <br>
+                                            <img style="width:24px; height:24px; vertical-align: middle;" src="icons/warning.png"> If no objects are detected, try to decrease the threshold. If too many objects are detected, increase its
+                                            value.
+                                        </span>
                                     </span>
                                 </p>
                                 <div class="slidecontainer">

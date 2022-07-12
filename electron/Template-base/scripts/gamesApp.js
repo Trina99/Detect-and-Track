@@ -4,7 +4,8 @@ var vm = new Vue({
     data: {
         appName: "Detect and Track",
         author: "Catarina Freitas da Cruz",
-        abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent luctus ex id lacus rutrum, in aliquam mauris rutrum. Suspendisse justo sapien, finibus vel convallis id, elementum ac magna. Aliquam consectetur nisi at tortor tincidunt vestibulum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam tincidunt augue id tortor tristique, vel suscipit magna sodales. Duis sed luctus ex. Pellentesque nec purus non quam ornare euismod. Donec in nulla sit amet ex consequat varius id quis arcu. Ut felis erat, consequat ac pulvinar in, luctus non velit. Sed varius non massa in dictum. Quisque auctor, lorem eget sodales consectetur, libero tellus ultrices nunc, eget commodo neque eros eget nisl. Quisque varius diam mi, non sollicitudin eros iaculis non.Ut et nibh placerat, semper purus at, gravida nisl.Sed eu sem ut sapien venenatis iaculis vitae eu risus.",
+        abstract: ["As part of the development of the master's dissertation, this program was developed with the objective of identifying the movement of a given object, in real time, in the environment of a game, using Machine Learning and Computer Vision techniques, more specifically methods of Object Detection and Tracking of Objects",
+        "The practical environment was developed using the OpenCV python library, which has a diverse range of computer vision algorithms available and also allows the parallel use of CPU and GPU for the optimization of these same algorithm.","To start the program it is necessary to choose a window, an image and a threshold value and then click on start.The program will search for the provided image in screenshots constant to the window, highlighting only the objects found with equality equal to or greater than the given threshold."],
         // windows: [],
         windows: [],
         selectedwindow: "",
@@ -54,7 +55,6 @@ var vm = new Vue({
             .catch(function () {
                 alert("frick");
             });
-            alert("cuk");
             // try{ 
             //     const requestOptions = {
             //         method: "POST",

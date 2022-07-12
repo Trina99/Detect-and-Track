@@ -27,19 +27,7 @@ def getWindows():
 
 @app.route('/run', methods=['POST'])  
 def run():
-    # print(request.headers)
-    # print(request.cookies)
     print(request.data)
-    # print(request.args)
-    # print(request.form)
-    # print(request.endpoint)
-    # print(request.method)
-    # print(request.remote_addr)
-    # record = request.get_json()
-    # window = record['window']
-    # img_path = record['img']
-    # threshold = record['threshold']
-    # print("IMAGE_PATH: " + img_path)
     window = request.form.get('window')
     img = request.files['file']
     threshold = request.form.get('threshold')

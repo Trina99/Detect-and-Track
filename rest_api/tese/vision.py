@@ -58,7 +58,7 @@ class Vision:
         aux_track = []
         for bbox in self.rectangles:
             tracker = cv.TrackerGOTURN_create()
-            
+            # tracker = cv.TrackerCSRT_create()
             # tracker = cv.TrackerMIL_Create()
             tracker.init(frame, bbox)
             aux_track.append(tracker)
