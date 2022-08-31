@@ -1,3 +1,4 @@
+from dbm import dumb
 import json
 import sys
 from flask import Flask, jsonify, request
@@ -9,6 +10,14 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+def dumb_function():
+    while True:
+        time.sleep(1)
+
+order66 = False
+thr = threading.Thread(target=dumb_function)
+running = False
 
 @app.route('/', methods=['GET'])
 def index():
@@ -27,22 +36,41 @@ def getWindows():
 
 @app.route('/run', methods=['POST'])  
 def run():
-    print(request.data)
-    window = request.form.get('window')
-    img = request.files['file']
-    threshold = request.form.get('threshold')
-    print(window)
-    print(threshold)
-    print(img)
-    # C:\\Users\\António Cruz\\Documents\\Github\\Detect-and-Track\\\rest_api\\tese\\
-    folderPath = os.path.join(os.getcwd(), "imgs")
-    print(folderPath)
-    img.save(os.path.join('imgs', "target.png"))
-    print(window)
-    thr = threading.Thread(target=execute, args=(window, threshold), kwargs={})
-    thr.start() # Will run "foo"
-    # print(windows)
-    response = jsonify({'windows': 'running'})
+    global order66
+    global thr
+    if not thr.is_alive():
+        print(request.data)
+        window = request.form.get('window')
+        img = request.files['file']
+        threshold = request.form.get('threshold')
+        print(window)
+        print(threshold)
+        print(img)
+        # C:\\Users\\António Cruz\\Documents\\Github\\Detect-and-Track\\\rest_api\\tese\\
+        folderPath = os.path.join(os.getcwd(), "imgs")
+        print(folderPath)
+        img.save(os.path.join('imgs', "target.png"))
+        print(window)
+        order66 = False
+        thr = threading.Thread(target=execute, args=(window, threshold, lambda: order66), kwargs={})
+        thr.start() # Will run "foo"
+        # print(windows)
+        response = jsonify({'windows': 'running'})
+    response = jsonify({'windows': 'Already running'})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+@app.route('/stop', methods=['POST'])
+def stop():
+    global order66
+    global thr
+    order66 = True
+    ans = "Order 66 activated"
+    print(ans)
+    if thr.is_alive():
+        thr.join()
+    print("order66: {0}".format(order66))
+    response = jsonify({'status': ans})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 

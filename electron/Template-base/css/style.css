@@ -316,9 +316,10 @@ body{
 .start{
     /* background-color: red; */
     display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
-    /* align-content: center; */
+    align-items: center;
     /* align-self: center; */
     /* align-items: center; */
     /* justify-items: center; */
@@ -326,10 +327,12 @@ body{
     /* margin: auto; */
 }
 
+.start>p{
+    font-size: 20px;
+}
+
 .start>button{
     /* background-color: #000000; */
-    background-color: #04AA6D;
-    background: radial-gradient(48.44% 395.41% at 48.44% 58.93%, rgba(11, 175, 245, 0.71) 0%, rgba(0, 247, 255, 0.73) 100%);
     border: 1px solid #000000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
@@ -338,6 +341,16 @@ body{
     height: 44px;
     font-size: 24px;
     color: #FFFFFF;
+}
+
+.startButton{
+    background-color: #04AA6D;
+    background: radial-gradient(48.44% 395.41% at 48.44% 58.93%, rgba(11, 175, 245, 0.71) 0%, rgba(0, 247, 255, 0.73) 100%);
+}
+.stopButton {
+    background-color: red;
+    color:black;
+    /*background: radial-gradient(48.44% 395.41% at 48.44% 58.93%, rgba(11, 175, 245, 0.71) 0%, rgba(0, 247, 255, 0.73) 100%);*/
 }
 
 /* Tooltip container */
