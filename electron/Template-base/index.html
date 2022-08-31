@@ -62,12 +62,12 @@
                                         </span>
                                     </span>
                                 </p>
-                                <input type="file" @change="handleFileUpload( $event )" />
+                                <input type="file" @change="handleFileUpload( $event )" accept="image/*"/>
                             </div>
                 
                             <div class="threshod">
                                 <p>
-                                    threshold 
+                                    Threshold 
                                     <span class="tooltip">
                                         <img style="width:20px; height:20px; " src="icons/question.png">
                                         <span class="tooltiptext">
@@ -88,7 +88,11 @@
                 
                         </div>
                         <div class="start">
-                            <button @click="start">START</button>
+                            <button type="button" @click="stop" class="stopButton" v-if="isRunning">STOP</button>
+                            <button type="button" @click="start" class="startButton" v-else>START</button>
+                            <p>
+                                When running press 'q' to exit
+                            </p>
                         </div>
                     </form>
                 </div>

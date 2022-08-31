@@ -25,7 +25,7 @@ def list_windows():
     print(windows)
     return windows
 
-def execute(window = 'None', threshold = 0.65):
+def execute(window = 'None', threshold = 0.65, stop=False):
 
     # initialize the WindowCapture class
     wincap = WindowCapture(window)
@@ -79,7 +79,7 @@ def execute(window = 'None', threshold = 0.65):
         cv.imshow('Matches', screenshot)
 
         # press 'q' with the output window focused to exit
-        if cv.waitKey(1) == ord('q'):
+        if cv.waitKey(1) == ord('q') or stop():
             cv.destroyAllWindows()
             break
     # print(window, img_path, threshold)

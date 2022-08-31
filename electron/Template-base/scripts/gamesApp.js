@@ -11,7 +11,8 @@ var vm = new Vue({
         selectedwindow: "",
         filename: "",
         file:'',
-        sense: 70
+        sense: 70,
+        isRunning: false
     },
     methods: {
         windos: async function () {
@@ -35,6 +36,7 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
+            this.isRunning = !this.isRunning;
             //alert(this.file.name);
             //alert(this.file.webkitRelativePath);
             let formData = new FormData();
@@ -53,7 +55,7 @@ var vm = new Vue({
                 console.log('SUCCESS!!');
             })
             .catch(function () {
-                alert("frick");
+                console.log("Failed");
             });
             // try{ 
             //     const requestOptions = {
@@ -71,6 +73,15 @@ var vm = new Vue({
             // } catch(erros) {
             //     console.log(erros);
             // }
+        },
+        stop(event){
+            this.isRunning = !this.isRunning;
+            axios.post('http://localhost:5000/stop').then(function () {
+                console.log('SUCCESS!!');
+            })
+            .catch(function () {
+                console.log("Failed");
+            });
         },
         processFile(event){
             var file = event.target.files;
