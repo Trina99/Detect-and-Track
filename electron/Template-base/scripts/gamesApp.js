@@ -36,43 +36,53 @@ var vm = new Vue({
         },
     // methods: {
         start(event){
-            this.isRunning = !this.isRunning;
             //alert(this.file.name);
             //alert(this.file.webkitRelativePath);
-            let formData = new FormData();
-            formData.append('window', this.selectedwindow);
-            formData.append('file', this.file);
-            formData.append('threshold', this.sense / 100);
-            
-            axios.post('http://localhost:5000/run',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
+            if(this.file != ""){
+                let formData = new FormData();
+                formData.append('window', this.selectedwindow);
+                formData.append('file', this.file);
+                if (this.sense > 100) this.sense = 100;
+                formData.append('threshold', this.sense / 100);
+                
+                axios.post('http://localhost:5000/run',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
                     }
-                }
-            ).then(function () {
-                console.log('SUCCESS!!');
-            })
-            .catch(function () {
-                console.log("Failed");
-            });
-            // try{ 
-            //     const requestOptions = {
-            //         method: "POST",
-            //         headers: { "Content-Type": "application/json" },
-            //         body: JSON.stringify({
-            //             window: this.selectedwindow,
-            //             img: this.file,
-            //             threshold: this.sense / 100,
-            //         })
-            //     };
+                    ).then(response => {
+                        if (response.status == 202) {
+                            alert(response.data);
+                        } else{
+                            this.isRunning = !this.isRunning;
+                        }
+                    console.log(response.data);
+                })
+                .catch(function () {
+                    console.log("Failed");
+                });
+                // try{ 
+                //     const requestOptions = {
+                //         method: "POST",
+                //         headers: { "Content-Type": "application/json" },
+                //         body: JSON.stringify({
+                //             window: this.selectedwindow,
+                //             img: this.file,
+                //             threshold: this.sense / 100,
+                //         })
+                //     };
 
-            //     const response = fetch("http://localhost:5000/run", requestOptions);
-            //     const data = response.json();
-            // } catch(erros) {
-            //     console.log(erros);
-            // }
+                //     const response = fetch("http://localhost:5000/run", requestOptions);
+                //     const data = response.json();
+                // } catch(erros) {
+                //     console.log(erros);
+                // }
+            }
+            else{
+                alert("Image not picked");
+            }
         },
         stop(event){
             this.isRunning = !this.isRunning;

@@ -38,27 +38,35 @@ def getWindows():
 def run():
     global order66
     global thr
-    if not thr.is_alive():
-        print(request.data)
-        window = request.form.get('window')
-        img = request.files['file']
-        threshold = request.form.get('threshold')
-        print(window)
-        print(threshold)
-        print(img)
-        # C:\\Users\\António Cruz\\Documents\\Github\\Detect-and-Track\\\rest_api\\tese\\
-        folderPath = os.path.join(os.getcwd(), "imgs")
-        print(folderPath)
-        img.save(os.path.join('imgs', "target.png"))
-        print(window)
-        order66 = False
-        thr = threading.Thread(target=execute, args=(window, threshold, lambda: order66), kwargs={})
-        thr.start() # Will run "foo"
-        # print(windows)
-        response = jsonify({'windows': 'running'})
-    response = jsonify({'windows': 'Already running'})
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+    try:
+        if not thr.is_alive():
+            print(request.data)
+            window = request.form.get('window')
+            if window != "" and not window in WindowCapture.list_window_names():
+                return "Error: Window not found. Try selecting the window again", 202
+            img = request.files['file']
+            threshold = request.form.get('threshold')
+            print(window)
+            print(threshold)
+            print(img)
+            # C:\\Users\\António Cruz\\Documents\\Github\\Detect-and-Track\\\rest_api\\tese\\
+            folderPath = os.path.join(os.getcwd(), "imgs")
+            print(folderPath)
+            img.save(os.path.join('imgs', "target.png"))
+            print(window)
+            order66 = False
+            thr = threading.Thread(target=execute, args=(window, threshold, lambda: order66), kwargs={})
+            thr.start() # Will run "foo"
+            thr.join(timeout=10)
+            # print(windows)
+            response = jsonify({'windows': 'running'})
+        else:
+            response = jsonify({'windows': 'Already running'})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    except Exception as e:
+        print("error{}".format(e.message))
+        return "ERROR: {0}".format(e.message), 202
 
 @app.route('/stop', methods=['POST'])
 def stop():

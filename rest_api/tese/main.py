@@ -74,8 +74,8 @@ def execute(window = 'None', threshold = 0.65, stop=False):
         spawn_weapon.draw(screenshot)
         i += 1
 
-        cv.namedWindow("Matches", cv.WND_PROP_FULLSCREEN)
-        cv.setWindowProperty("Matches", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+        cv.namedWindow("Matches", cv.WINDOW_NORMAL)
+        #cv.setWindowProperty("Matches", cv.WND_PROP_TOPMOST, cv.WINDOW_FULLSCREEN)
         cv.imshow('Matches', screenshot)
 
         # press 'q' with the output window focused to exit
