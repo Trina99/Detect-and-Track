@@ -32,7 +32,7 @@ class Vision:
     def find(self, haystack_img, threshold=0.7):
 
         result = cv.matchTemplate(haystack_img, self.needle_img, self.method)
-
+        # print("1:\n{}".format(result))
         # Get the all the positions from the match result that exceed our threshold
         locations = np.where(result >= threshold)
         locations = list(zip(*locations[::-1]))
