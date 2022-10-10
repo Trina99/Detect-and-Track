@@ -1,6 +1,10 @@
 import cv2 as cv
 import numpy as np
 import threading
+import multiprocessing
+from time import time
+import copy
+
 
 class Vision: 
     # properties
@@ -8,9 +12,13 @@ class Vision:
     w = 0
     h = 0
     method = None
+    new_rectangles = []
     rectangles = []
     # tracker_type = "GOTURN"
     tracks = []
+    avg_precision = 0
+    n_of_objs = 0
+    new_trackers = []
 
     # constructor
     def __init__(self, needle_img_path, method=cv.TM_CCOEFF_NORMED):
@@ -30,39 +38,54 @@ class Vision:
     # encontra todas as needle_img em haystack_img
     # devolve lista de retangulos
     def find(self, haystack_img, threshold=0.7):
-
+        # beg = time()
         result = cv.matchTemplate(haystack_img, self.needle_img, self.method)
         # print("1:\n{}".format(result))
         # Get the all the positions from the match result that exceed our threshold
         locations = np.where(result >= threshold)
         locations = list(zip(*locations[::-1]))
-
+        for (x,y) in locations:
+            self.n_of_objs += 1
+            prec = result[y][x]
+            self.avg_precision = self.avg_precision + ((prec - self.avg_precision)/self.n_of_objs)
+        # prim = time() - beg
+        # beg = time()
         rectangles = []
-        self.rectangles = []
+        self.new_rectangles = []
         # rectangles = list(self.rectangles)
         if not locations:
             return np.array([], dtype=np.int32).reshape(0, 4)
-
+        # sec = time() - beg
+        # beg = time()
         for loc in locations:
             rect = [int(loc[0]), int(loc[1]), self.w, self.h]
             rectangles.append(rect)
             rectangles.append(rect)
-
+        
+        # third = time() - beg
+        # beg = time()
+        
         aux, weights = cv.groupRectangles(rectangles, groupThreshold=1, eps=0.5)
-        self.rectangles = aux
+        self.new_rectangles = aux
+        
+        # end = time() - beg
+        # beg = time()
+        
+        # print(f"\n---------\n{prim}\n{sec}\n{third}\n{end}\n---------\n")
+
         # self.init_tracks(haystack_img)
         return aux
 
     # inicializa goturn tracker de todos os retangulos no frame
+
+    
     def init_tracks(self, frame):
         aux_track = []
-        for bbox in self.rectangles:
+        for bbox in self.new_rectangles:
             tracker = cv.TrackerGOTURN_create()
-            # tracker = cv.TrackerCSRT_create()
-            # tracker = cv.TrackerMIL_Create()
             tracker.init(frame, bbox)
             aux_track.append(tracker)
-        self.tracks = aux_track
+        self.new_trackers = aux_track
 
     def track(self, frame):
         aux_bb=[]
