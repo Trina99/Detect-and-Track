@@ -149,7 +149,7 @@ Vue.component('link-button', {
 Vue.component ('links-url', {
     data: function () {
         return{
-            thesis_url: 'a84011_pre_dissertation.pdf',
+            thesis_url: 'https://github.com/Trina99/Detect-and-Track/blob/main/dissertacao_a84011_1.pdf',
             github_url: "https://github.com/Trina99/Detect-and-Track",
             linkdIn_url: "https://www.linkedin.com/in/catarinafreitascruz/",
             anybrain_url: "https://anybrain.gg/",
@@ -158,7 +158,7 @@ Vue.component ('links-url', {
     template:`
         <div class="buttons">
 
-            <link-button v-bind:link="thesis_url" img="icons/download.png" height="40px" width="40px" padding="5px" download/>
+            <link-button v-bind:link="thesis_url" img="icons/download.png" height="40px" width="40px" padding="5px"/>
             
             <link-button v-bind:link="github_url" img="icons/github.png" height="45px" width="45px"/>
 
